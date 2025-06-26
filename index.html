@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cirqle | Real Connections, Real Communities</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+        /* A modern CSS reset */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        :root {
+            --primary: #6352E2;
+            --primary-light: #7D78EB;
+            --primary-background: #FBFAFF;
+            --secondary-background: #FFFFFF;
+            --primary-text: #1C1C1E;
+            --secondary-text: #57575B;
+            --hero-text: #FFFFFF;
+            --border-color: #E2E2E4;
+            --gradient-start: #6352E2;
+            --gradient-end: #BFA8FF;
+        }
+
+        @font-face {
+            font-family: 'Geist';
+            src: url('https://cdn.jsdelivr.net/npm/@vercel/geist@1/dist/fonts/geist-sans/Geist-Variable.woff2') format('woff2');
+            font-weight: 100 900;
+            font-style: normal;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-background);
+            color: var(--primary-text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            --primary-background: #1C1C1E;
+            --secondary-background: #2C2C2E;
+            --primary-text: #FFFFFF;
+            --secondary-text: #919196;
+            --border-color: #38383B;
+            --gradient-start: #2E2571;
+            --gradient-end: #1C1C1E;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        header {
+            background-color: rgba(251, 250, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 24px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        body.dark-mode header {
+            background-color: rgba(28, 28, 30, 0.75);
+        }
+
+        .header-container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            height: 28px;
+        }
+
+        .logo-dark {
+            display: none;
+        }
+        body.dark-mode .logo-light {
+            display: none;
+        }
+        body.dark-mode .logo-dark {
+            display: block;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Geist', sans-serif;
+            font-weight: 600;
+            color: var(--primary-text);
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+        }
+
+        h2 {
+            font-size: clamp(2rem, 4vw, 3rem);
+            margin-bottom: 40px;
+        }
+        
+        p {
+            color: var(--secondary-text);
+            max-width: 600px;
+            margin-bottom: 24px;
+        }
+        
+        .section {
+            padding: 100px 0;
+        }
+
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 140px 0;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            overflow: hidden;
+            color: var(--hero-text);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            color: var(--hero-text);
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.125rem;
+            color: var(--hero-text);
+            opacity: 0.9;
+            max-width: 550px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 40px;
+        }
+
+        /* Concentric Glass Circles */
+        .glass-circles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .glass-circles .circle {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+            animation: pulse 20s infinite ease-in-out;
+        }
+
+        .glass-circles .c1 {
+            width: 600px; height: 600px;
+            top: -200px; left: -200px;
+            animation-delay: 0s;
+        }
+        .glass-circles .c2 {
+            width: 800px; height: 800px;
+            bottom: -300px; right: -300px;
+            animation-delay: 5s;
+        }
+        .glass-circles .c3 {
+            width: 500px; height: 500px;
+            bottom: 50px; left: 10%;
+            animation-delay: 10s;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+        
+        .waitlist-form {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        .waitlist-form input {
+            flex-grow: 1;
+            padding: 16px;
+            border: 1px solid transparent;
+            border-radius: 8px;
+            font-size: 1rem;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: var(--hero-text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .waitlist-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .waitlist-form input:focus {
+            outline: none;
+            border-color: rgba(255, 255, 255, 0.8);
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary);
+            color: var(--hero-text);
+            font-family: 'Geist', sans-serif;
+            font-weight: 500;
+            font-size: 1rem;
+            text-decoration: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: transform 0.2s ease, background-color 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            background-color: var(--primary-light);
+        }
+        
+        .hero .cta-button {
+            background-color: var(--primary);
+            color: var(--hero-text);
+            padding: 16px 28px;
+        }
+        .hero .cta-button:hover {
+            background-color: var(--primary-light);
+        }
+        body.dark-mode .hero .cta-button {
+            background-color: #2E2571;
+        }
+        body.dark-mode .hero .cta-button:hover {
+            background-color: #473BA8;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header p {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        #features {
+            text-align: center;
+            padding-top: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 40px;
+            text-align: left;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            background-color: var(--secondary-background);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+        }
+
+        body.dark-mode .feature-card {
+            background-color: rgba(44, 44, 46, 0.6);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+        }
+
+        body.dark-mode .feature-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            background-color: rgba(58, 58, 60, 0.7);
+        }
+        
+        .feature-card .icon {
+            width: 48px;
+            height: 48px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 12px;
+            color: var(--hero-text);
+        }
+        
+        .feature-card .icon svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: var(--primary-text);
+        }
+
+        .feature-card p {
+            color: var(--secondary-text);
+            margin-bottom: 0;
+        }
+
+        #vision {
+            background-color: var(--secondary-background);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        #vision::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 1200px;
+            height: 1200px;
+            transform: translate(-50%, -50%);
+            background: radial-gradient(circle, var(--primary) 0%, rgba(251, 250, 255, 0) 60%);
+            opacity: 0.1;
+            z-index: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        body.dark-mode #vision::before {
+            opacity: 0.15;
+            background: radial-gradient(circle, var(--primary) 0%, rgba(28, 28, 30, 0) 60%);
+        }
+
+        #vision .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        #vision p {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 1px solid var(--border-color);
+            color: var(--secondary-text);
+            font-size: 0.9rem;
+        }
+
+        footer p {
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 0;
+        }
+
+        .footer-links {
+            margin-bottom: 24px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px 24px;
+        }
+
+        .footer-links a {
+            color: var(--secondary-text);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-text);
+            text-decoration: underline;
+        }
+
+        .theme-switcher {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            padding: 8px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: border-color 0.3s ease;
+        }
+        .theme-switcher svg {
+            width: 20px;
+            height: 20px;
+            color: var(--primary-text);
+            transition: color 0.3s ease;
+        }
+
+        .moon-icon { display: none; }
+        body.dark-mode .sun-icon { display: none; }
+        body.dark-mode .moon-icon { display: block; }
+
+        .app-showcase {
+            padding-top: 0;
+            text-align: center;
+        }
+        .app-mockup {
+            max-width: 380px;
+            width: 100%;
+            border-radius: 40px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            margin-top: -80px;
+            position: relative;
+            z-index: 5;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        body.dark-mode .app-mockup {
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+        }
+
+        /* Animation */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <img src="https://ik.imagekit.io/ndmiq5huz/Cirqle_typelogo_purple.svg?updatedAt=1747839852911" alt="Cirqle Logo" class="logo logo-light">
+            <img src="https://ik.imagekit.io/ndmiq5huz/Cirqle_logotype.png?updatedAt=1744522959658" alt="Cirqle Logo" class="logo logo-dark">
+            <button id="theme-switcher" class="theme-switcher">
+                <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="glass-circles">
+                <div class="circle c1"></div>
+                <div class="circle c2"></div>
+                <div class="circle c3"></div>
+            </div>
+            <div class="hero-content container">
+                <h1>Don't Just Perform.<br>Start Connecting.</h1>
+                <p>Cirqle is a space to share your life with your people—minus the pressure and noise of traditional social media. Build authentic communities, online and in real life.</p>
+                <form class="waitlist-form" id="waitlist-form">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="cta-button">Join Waitlist</button>
+                </form>
+            </div>
+        </section>
+
+        <section class="app-showcase fade-in-section">
+            <img src="https://ik.imagekit.io/ndmiq5huz/app_screen.png?updatedAt=1750881596001" alt="Cirqle App Screenshot" class="app-mockup">
+        </section>
+
+        <section class="section container fade-in-section" id="about">
+            <div class="section-header">
+                <h2>Social media that's actually social.</h2>
+                <p>We're tired of endless scrolling, highlight reels, and feeling disconnected. Cirqle is designed from the ground up to foster genuine interactions. Share what you want, with who you want. Effortlessly.</p>
+            </div>
+        </section>
+
+        <section class="section container fade-in-section" id="features">
+            <div class="section-header">
+                <h2>Designed for Your World</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                    </div>
+                    <h3>Frictionless Sharing</h3>
+                    <p>Our intuitive controls let you choose your audience for every post. Share to your inner circle, your event crew, or your whole community with a single tap.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    </div>
+                    <h3>Events Made Easy</h3>
+                    <p>From local meetups to ticketed shows. Create events, manage guestlists, and keep the vibe going with dedicated event group chats and countdowns.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                    </div>
+                    <h3>From Posts to Streams</h3>
+                    <p>Experience a more natural flow of information. Cirqle is less about static posts and more about a living message stream you can easily navigate.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section fade-in-section" id="vision">
+            <div class="container">
+                <h2>For everyone, not just "creators".</h2>
+                <p>You don't need to be a pro video editor to share your passions. Cirqle is a platform for everyone to share their skills, knowledge, and everyday life with the people who care.</p>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer id="waitlist">
+        <div class="footer-links">
+            <a href="https://docs.google.com/document/d/14FK1bn0xuyBYGsjhXvY5wj3whXuwuOIYfPetbWs9T24/edit?usp=drive_link" target="_blank" rel="noopener">Terms of Service</a>
+            <a href="https://docs.google.com/document/d/14FK1bn0xuyBYGsjhXvY5wj3whXuwuOIYfPetbWs9T24/edit?usp=drive_link" target="_blank" rel="noopener">Privacy Policy</a>
+            <a href="https://docs.google.com/document/d/1-Xi_18edxHjjna1IDn8Q07F2KQbnOazlPw8bLPRqd1I/edit?usp=drive_link" target="_blank" rel="noopener">Open Source Use</a>
+            <a href="https://docs.google.com/document/d/14ykpIxUjGkRZusjnqoxxjrohPt69zcBdXc5D7LEm0BE/edit?usp=drive_link" target="_blank" rel="noopener">Intellectual Property</a>
+            <a href="https://docs.google.com/document/d/1f5Frz8m5hPsiTTkY0J_rdvXnPJJJUbRFk6xbgSF0cy8/edit?usp=drive_link" target="_blank" rel="noopener">Cookies Policy</a>
+            <a href="https://docs.google.com/document/d/19EOXXUp0pAVd59CFSzucgjKb8l_56jBweV6FdDumdvE/edit?usp=drive_link" target="_blank" rel="noopener">Community Guidelines</a>
+        </div>
+        <p>&copy; 2024 CIRQLE (PRIVATE LIMITED). All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById('waitlist-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for joining the waitlist!');
+            // Here you would typically send the email to your backend
+            e.target.reset();
+        });
+
+        // Theme Switcher
+        const themeSwitcher = document.getElementById('theme-switcher');
+        const body = document.body;
+
+        function setTheme(theme) {
+            body.className = theme === 'dark' ? 'dark-mode' : '';
+            localStorage.setItem('theme', theme);
+        }
+
+        themeSwitcher.addEventListener('click', () => {
+            const currentTheme = localStorage.getItem('theme') || (body.classList.contains('dark-mode') ? 'dark' : 'light');
+            setTheme(currentTheme === 'light' ? 'dark' : 'light');
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+            if (savedTheme) {
+                setTheme(savedTheme);
+            } else if (prefersDark) {
+                setTheme('dark');
+            }
+        });
+
+        // Scroll Animation
+        const sections = document.querySelectorAll('.fade-in-section');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+
+        sections.forEach(section => {
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html> 
